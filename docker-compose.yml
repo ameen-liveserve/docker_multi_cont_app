@@ -1,0 +1,29 @@
+version: '3.1'
+
+services:
+  php:
+    build: ./php
+    container_name: php56-web
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
+
+  mysql:
+    build: ./mysql
+    container_name: mysql56-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin-new
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "8081:80"
+    depends_on:
+      - mysql
